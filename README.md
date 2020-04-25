@@ -1,2 +1,2 @@
-# Vertauschte Woerter
- Vertauscht einzelne Wörter
+# Vertauschte Wörter
+ Vertauscht die Wörter, die das Känguru vorschlug.
