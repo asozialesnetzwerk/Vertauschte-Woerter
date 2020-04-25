@@ -1,0 +1,20 @@
+{
+  "aggressiv": "attraktiv",
+  "attraktiv": "aggressiv",
+
+  "aggressivst": "attraktivst",
+  "attraktivst": "aggressivst",
+
+  "attraktivität": "aggressivität",
+  "aggressivität": "attraktivität",
+
+
+  "amüsant": "relavant",
+  "relevant": "amüsant",
+
+  "amüsantest": "relavantest",
+  "relevantest": "amüsantest",
+
+  "amüsanz": "relevanz",
+  "relevanz": "amüsanz"
+}
