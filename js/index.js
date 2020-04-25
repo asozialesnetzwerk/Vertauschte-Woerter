@@ -89,6 +89,9 @@ function onSubmit() {
             const e = text[i].toLocaleLowerCase().lastIndexOf('e');
             if(e > 0) {
                 let replacement2 = words[text[i].substr(0, e).toLocaleLowerCase()];
+                if(replacement2 === undefined) {
+                    replacement2 = words[text[i].substr(0, e + 1).toLocaleLowerCase()];
+                }
                 if(replacement2 !== undefined) {
                     replacement = replacement2 + text[i].substr(e);
                 }
