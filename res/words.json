@@ -7,14 +7,17 @@
   "amüsanz": "relevanz",
 
   "ministerium": "mysterium",
+  "ministeriums": "mysteriums",
   "ministerien": "mysterien",
 
   "bundestag": "schützenverein",
+  "bundestags": "schützenvereins",
 
   "ironisch": "erotisch",
   "ironie": "erotik",
 
   "problem": "ekzem",
+  "problems": "ekzems",
 
   "kritisch": "kryptisch",
   "kritischst": "kryptischst",
@@ -23,5 +26,6 @@
   "provozieren": "produzieren",
   "provoziert": "produziert",
 
-  "arbeitnehmer": "arbeitgeber"
+  "arbeitnehmer": "arbeitgeber",
+  "arbeitsnehmers": "arbeitgebers"
 }
