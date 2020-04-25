@@ -4,6 +4,24 @@ function setWords(json) {
     words = json;
 }
 
+function getUrlVars() {
+    const vars = {};
+    window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
+        vars[key] = value;
+    });
+    return vars;
+}
+
+function getUrlParam(parameter) {
+    if (window.location.href.indexOf(parameter) > -1) {
+        return decodeURI(getUrlVars()[parameter]);
+    } else {
+        return "";
+    }
+}
+
+document.getElementById("text_input").value = getUrlParam("text");
+
 fetch("res/words.json")
     .then(function(response) {
             response.json().then(setWords)
@@ -34,14 +52,19 @@ function onSubmit() {
     }
     const input = document.getElementById("text_input").value;
 
-    const text = input.split(/[^a-zA-Z_0-9]+/); // everything that isn't [a-zA-Z_0-9]
-    const not_text = input.split(/[a-zA-Z_0-9]+/);  //everything that is [a-zA-Z_0-9]
+    if(input.length === 0) {
+        alert("Type some text in.");
+        return;
+    }
+
+    const text = input.split(/[^a-zA-Z_0-9_Ä_Ö_Ü_ä_ö_ü]+/); // everything that isn't [a-zA-Z_0-9ÄÖÜäöü]
+    const not_text = input.split(/[a-zA-Z_0-9_Ä_Ö_Ü_ä_ö_ü]+/);  //everything that is [a-zA-Z_0-9ÄÖÜäöü]
 
     console.log(text.toString());
     console.log(not_text.toString());
 
 
-    const starts_with_text = input.indexOf(text[0]) === 0;
+    const starts_with_text = text[0].length > 0;
 
     function getNextTextPart(index, replacedText) {
         let str = "";
@@ -49,7 +72,7 @@ function onSubmit() {
             str += replacedText;
             if(index + 1 < not_text.length) str += not_text[index + 1];
         } else {
-            if(index < not_text.length) str += not_text[index];
+            if(index - 1 < not_text.length) str += not_text[index - 1];
             str += replacedText;
         }
         return str;
@@ -57,14 +80,15 @@ function onSubmit() {
 
     let out = "";
 
-    for (var i = 0; i < text.length; i++) {
-        let replacement = words[text[i].toLowerCase()];
+    for (var i = starts_with_text ? 0 : 1; i < text.length; i++) {
+        let replacement = words[text[i].toLocaleLowerCase()];
+        console.log(text[i].toLocaleLowerCase());
         if(replacement === undefined) {
             replacement = text[i];
 
-            const e = text[i].toLowerCase().lastIndexOf('e');
+            const e = text[i].toLocaleLowerCase().lastIndexOf('e');
             if(e > 0) {
-                let replacement2 = words[text[i].substr(0, e).toLowerCase()];
+                let replacement2 = words[text[i].substr(0, e).toLocaleLowerCase()];
                 if(replacement2 !== undefined) {
                     replacement = replacement2 + text[i].substr(e);
                 }
@@ -84,3 +108,7 @@ function onSubmit() {
 
     document.getElementById("output").textContent = out;
 }
+
+//Es ist relevant, wie AMÜSANT manche Leute Aggressivität finden.
+
+
