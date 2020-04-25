@@ -57,11 +57,8 @@ function onSubmit() {
         return;
     }
 
-    const text = input.split(/[^a-zA-Z_0-9_Ä_Ö_Ü_ä_ö_ü]+/); // everything that isn't [a-zA-Z_0-9ÄÖÜäöü]
-    const not_text = input.split(/[a-zA-Z_0-9_Ä_Ö_Ü_ä_ö_ü]+/);  //everything that is [a-zA-Z_0-9ÄÖÜäöü]
-
-    console.log(text.toString());
-    console.log(not_text.toString());
+    const text = input.split(/[^a-zA-ZÄÖÜäöü]+/); // everything that isn't word
+    const not_text = input.split(/[a-zA-ZÄÖÜäöü]+/);  //everything that is word
 
 
     const starts_with_text = text[0].length > 0;
@@ -82,7 +79,6 @@ function onSubmit() {
 
     for (var i = starts_with_text ? 0 : 1; i < text.length; i++) {
         let replacement = words[text[i].toLocaleLowerCase()];
-        console.log(text[i].toLocaleLowerCase());
         if(replacement === undefined) {
             replacement = text[i];
 
