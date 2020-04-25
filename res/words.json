@@ -1,20 +1,24 @@
 {
   "aggressiv": "attraktiv",
-  "attraktiv": "aggressiv",
-
   "aggressivst": "attraktivst",
-  "attraktivst": "aggressivst",
-
-  "attraktivität": "aggressivität",
   "aggressivität": "attraktivität",
 
-
   "amüsant": "relevant",
-  "relevant": "amüsant",
-
-  "amüsantest": "relavantest",
-  "relevantest": "amüsantest",
-
   "amüsanz": "relevanz",
-  "relevanz": "amüsanz"
+
+  "ministerium": "mysterium",
+  "ministerien": "mysterien",
+
+  "bundestag": "schützenverein",
+
+  "ironisch": "erotisch",
+
+  "problem": "ekzem",
+
+  "kritisch": "kryptisch",
+  "kritik": "kryptik",
+
+  "provozieren": "produzieren",
+
+  "arbeitnehmer": "arbeitgeber"
 }

@@ -1,6 +1,10 @@
 var words = undefined;
 
 function setWords(json) {
+    const keys = Object.keys(json);
+    for (var i = 0; i < keys.length; i++) {
+        json[json[keys[i]]] = keys[i]; //value as key with old key as new value
+    }
     words = json;
 }
 
@@ -104,7 +108,3 @@ function onSubmit() {
 
     document.getElementById("output").textContent = out;
 }
-
-//Es ist relevant, wie AMÜSANT manche Leute Aggressivität finden.
-
-
