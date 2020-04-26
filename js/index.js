@@ -1,12 +1,21 @@
-var words = undefined;
+let words = undefined;
 
 function setWords(json) {
     const keys = Object.keys(json);
-    for (var i = 0; i < keys.length; i++) {
+    for (let i = 0; i < keys.length; i++) {
         json[json[keys[i]]] = keys[i]; //value as key with old key as new value
     }
     words = json;
 }
+
+fetch("Vertauschte-Woerter/res/words.json")
+    .then(function (response) {
+            response.json().then(setWords)
+        }, function (error) {
+            error.text().then(console.log)
+        }
+    );
+
 
 function getUrlVars() {
     const vars = {};
@@ -26,14 +35,6 @@ function getUrlParam(parameter) {
 
 document.getElementById("text_input").value = getUrlParam("text");
 
-fetch("res/words.json")
-    .then(function(response) {
-            response.json().then(setWords)
-        }, function (error) {
-            error.text().then(console.log)
-        }
-    );
-
 function firstLetterIsUpperCase(str) {
     if(str.length === 0) return false;
     const firstLetter = str.substr(0, 1);
@@ -49,17 +50,8 @@ function setFirstLetterUpperCase(str) {
     return str.substr(0, 1).toUpperCase() + str.substr(1);
 }
 
-function onSubmit() {
-    if(words === undefined) {
-        alert("Try again.");
-        return;
-    }
-    const input = document.getElementById("text_input").value;
-
-    if(input.length === 0) {
-        alert("Type some text in.");
-        return;
-    }
+function replaceText(input) {
+    if(input === "") return "";
 
     const text = input.split(/[^a-zA-ZÄÖÜäöü]+/); // everything that isn't word
     const not_text = input.split(/[a-zA-ZÄÖÜäöü]+/);  //everything that is word
@@ -81,7 +73,7 @@ function onSubmit() {
 
     let out = "";
 
-    for (var i = starts_with_text ? 0 : 1; i < text.length; i++) {
+    for (let i = starts_with_text ? 0 : 1; i < text.length; i++) {
         let replacement = words[text[i].toLocaleLowerCase()];
         if(replacement === undefined) {
             replacement = text[i];
@@ -109,5 +101,18 @@ function onSubmit() {
         out += getNextTextPart(i, replacement);
     }
 
-    document.getElementById("output").textContent = out;
+    return out;
+}
+
+function onSubmit() {
+    if(words === undefined) {
+        alert("Try again.");
+        return;
+    }
+    const input = document.getElementById("text_input").value;
+    if(input.length === 0) {
+        alert("Type some text in.");
+        return;
+    }
+    document.getElementById("output").textContent = replaceText(input);
 }
