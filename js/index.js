@@ -1,20 +1,34 @@
-let words = undefined;
+let json  = {
+    "aggressiv": "attraktiv",
 
-function setWords(json) {
-    const keys = Object.keys(json);
-    for (let i = 0; i < keys.length; i++) {
-        json[json[keys[i]]] = keys[i]; //value as key with old key as new value
-    }
-    words = json;
+    "amüsant": "relevant",
+    "amüsanz": "relevanz",
+
+    "ministerium": "mysterium",
+    "ministerien": "mysterien",
+
+    "bundestag": "schützenverein",
+
+    "ironisch": "erotisch",
+    "ironie": "erotik",
+    "ironiker": "erotiker",
+
+    "problem": "ekzem",
+
+    "kritisch": "kryptisch",
+    "kritik": "kryptik",
+
+    "provozier": "produzier",
+
+    "arbeitnehmer": "arbeitgeber",
+};
+
+let keys = Object.keys(json);
+const words = json;
+for (let i = 0; i < keys.length; i++) {
+    words[json[keys[i]]] = keys[i]; //value as key with old key as new value
 }
-
-fetch("Vertauschte-Woerter/res/words.json")
-    .then(function (response) {
-            response.json().then(setWords)
-        }, function (error) {
-            error.text().then(console.log)
-        }
-    );
+keys = Object.keys(words);
 
 
 function getUrlVars() {
@@ -74,19 +88,12 @@ function replaceText(input) {
     let out = "";
 
     for (let i = starts_with_text ? 0 : 1; i < text.length; i++) {
-        let replacement = words[text[i].toLocaleLowerCase()];
-        if(replacement === undefined) {
-            replacement = text[i];
+        let replacement = text[i].toLowerCase();
 
-            const e = text[i].toLocaleLowerCase().lastIndexOf('e');
-            if(e > 0) {
-                let replacement2 = words[text[i].substr(0, e).toLocaleLowerCase()];
-                if(replacement2 === undefined) {
-                    replacement2 = words[text[i].substr(0, e + 1).toLocaleLowerCase()];
-                }
-                if(replacement2 !== undefined) {
-                    replacement = replacement2 + text[i].substr(e);
-                }
+        for (let j = 0; j < keys.length; j++) {
+            if(replacement.indexOf(keys[j]) !== -1) {
+                replacement = replacement.replace(keys[j], words[keys[j]]);
+                break;
             }
         }
 
