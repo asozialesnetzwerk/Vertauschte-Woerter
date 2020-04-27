@@ -30,7 +30,6 @@ for (let i = 0; i < keys.length; i++) {
 }
 keys = Object.keys(words);
 
-
 function getUrlVars() {
     const vars = {};
     window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
@@ -49,65 +48,50 @@ function getUrlParam(parameter) {
 
 document.getElementById("text_input").value = getUrlParam("text");
 
-function firstLetterIsUpperCase(str) {
-    if(str.length === 0) return false;
-    const firstLetter = str.substr(0, 1);
-    return firstLetter.toLocaleUpperCase() === firstLetter;
-}
-
-function stringIsUpperCase(str) {
-    return str.toUpperCase() === str;
-}
-
-function setFirstLetterUpperCase(str) {
-    if(str.length === 0) return str;
-    return str.substr(0, 1).toUpperCase() + str.substr(1);
-}
-
 function replaceText(input) {
-    if(input === "") return "";
+    if(input.length === 0) return "";
 
     const text = input.split(/[^a-zA-ZÄÖÜäöü]+/); // everything that isn't word
-    const not_text = input.split(/[a-zA-ZÄÖÜäöü]+/);  //everything that is word
+    const notText = input.split(/[a-zA-ZÄÖÜäöü]+/);  //everything that is word
 
 
-    const starts_with_text = text[0].length > 0;
+    const startsWithText = text[0].length > 0;
 
     function getNextTextPart(index, replacedText) {
         let str = "";
-        if(starts_with_text) {
+        if(startsWithText) {
             str += replacedText;
-            if(index + 1 < not_text.length) str += not_text[index + 1];
+            if(index + 1 < notText.length) str += notText[index + 1];
         } else {
-            if(index - 1 < not_text.length) str += not_text[index - 1];
+            if(index - 1 < notText.length) str += notText[index - 1];
             str += replacedText;
         }
         return str;
     }
 
     let out = "";
+    for (let i = startsWithText ? 0 : 1; i < text.length; i++) {
+        if(text[i].length > 0) {
+            let replacement = text[i].toLowerCase();
 
-    for (let i = starts_with_text ? 0 : 1; i < text.length; i++) {
-        let replacement = text[i].toLowerCase();
-
-        for (let j = 0; j < keys.length; j++) {
-            if(replacement.indexOf(keys[j]) !== -1) {
-                replacement = replacement.replace(keys[j], words[keys[j]]);
-                break;
+            for (let j = 0; j < keys.length; j++) {
+                if (replacement.indexOf(keys[j]) !== -1) {
+                    replacement = replacement.replace(keys[j], words[keys[j]]);
+                    break;
+                }
             }
-        }
 
-        if(replacement !== text[i]) {
-            if (stringIsUpperCase(text[i])) {
-                replacement = replacement.toUpperCase();
-            } else if (firstLetterIsUpperCase(text[i])) {
-                replacement = setFirstLetterUpperCase(replacement);
+            if (replacement !== text[i] && replacement .length > 0) {
+                if (text[i].toUpperCase() === text[i]) { //checks if string is uppercase
+                    replacement = replacement.toUpperCase();
+                } else if (text[i].substr(0, 1).toLocaleUpperCase() === text[i].substr(0, 1)) { //checks if first letter is uppercase
+                    replacement = replacement.substr(0, 1).toUpperCase() + replacement.substr(1); //sets first letter uppercase, to match case with the original word
+                }
             }
-        }
 
-        out += getNextTextPart(i, replacement);
+            out += getNextTextPart(i, replacement);
+        }
     }
-
     return out;
 }
 
