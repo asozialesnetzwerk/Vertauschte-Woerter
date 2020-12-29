@@ -1,26 +1,40 @@
 let json  = {
     "aggressiv": "attraktiv",
+    "aggressive": "attractive",
 
     "amüsant": "relevant",
     "amüsanz": "relevanz",
+    "amusing": "relevant",
+    "amusement": "relevance",
 
     "ministerium": "mysterium",
     "ministerien": "mysterien",
+    "ministry": "mystery",
+    "ministries": "mystries",
 
     "bundestag": "schützenverein",
+    "congress": "the nra",
 
     "ironisch": "erotisch",
     "ironie": "erotik",
     "ironiker": "erotiker",
+    "ironic": "erotic",
+    "irony": "erotica",
+    "ironist": "eroticist",
 
     "problem": "ekzem",
+    "problem": "eczema",
 
     "kritisch": "kryptisch",
     "kritik": "kryptik",
+    "critical": "cryptic",
+    "criticism": "cryptics",
 
     "provozier": "produzier",
+    "provocate": "produce",
 
     "arbeitnehmer": "arbeitgeber",
+    "employee": "employer",
 };
 
 let keys = Object.keys(json);
